@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnRape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Rape"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnRobbery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Robbery"
+        android:layout_below="@id/btnRape"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnAssault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Assault"
+        android:layout_below="@id/btnRobbery"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnViolence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Violence"
+        android:layout_below="@id/btnAssault"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnCorruption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Corruption"
+        android:layout_below="@id/btnViolence"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnTrafficOffense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Traffic Offense"
+        android:layout_below="@id/btnCorruption"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnFraudScams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Fraud and Scams"
+        android:layout_below="@id/btnTrafficOffense"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnDrugRelated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Report Drug-Related Offenses"
+        android:layout_below="@id/btnFraudScams"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btnShowCases"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Cases (Police Use Only)"
+        android:layout_below="@id/btnDrugRelated"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>
