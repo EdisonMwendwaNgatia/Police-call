@@ -3,33 +3,46 @@ package com.example.policecall
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.*
 
 class ShowCasesActivity : AppCompatActivity() {
+
+    private lateinit var database: DatabaseReference
+    private lateinit var tvCases: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_cases)
 
-        val tvCases = findViewById<TextView>(R.id.tvCases)
+        tvCases = findViewById(R.id.tvCases)
 
-        // Fetch cases from the database
-        val dbHelper = DatabaseHelper(this)
-        val db = dbHelper.readableDatabase
-        val cursor = db.query(
-            DatabaseHelper.TABLE_CASES, null, null, null, null, null, null
-        )
+        // Initialize Firebase database reference
+        database = FirebaseDatabase.getInstance().reference.child("cases")
 
-        // Display the cases in the TextView
-        val stringBuilder = StringBuilder()
-        while (cursor.moveToNext()) {
-            val caseType = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_TYPE))
-            val phoneNumber = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PHONE_NUMBER))
-            val location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION))
-            stringBuilder.append("Case: $caseType\nPhone: $phoneNumber\nLocation: $location\n\n")
-        }
-        cursor.close()
-        db.close()
+        // Fetch cases from Firebase
+        fetchCases()
+    }
 
-        tvCases.text = stringBuilder.toString()
+    private fun fetchCases() {
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val stringBuilder = StringBuilder()
+
+                for (caseSnapshot in snapshot.children) {
+                    val caseType = caseSnapshot.child("type").value.toString()
+                    val phoneNumber = caseSnapshot.child("phoneNumber").value.toString()
+                    val location = caseSnapshot.child("location").value.toString()
+
+                    stringBuilder.append("Case: $caseType\nPhone: $phoneNumber\nLocation: $location\n\n")
+                }
+
+                tvCases.text = stringBuilder.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+                tvCases.text = "Failed to load cases."
+            }
+        })
     }
 }

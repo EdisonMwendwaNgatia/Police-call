@@ -1,17 +1,19 @@
 package com.example.policecall
 
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class EnterDetailsActivity : AppCompatActivity() {
 
     private lateinit var caseType: String
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +22,10 @@ class EnterDetailsActivity : AppCompatActivity() {
         // Get the case type from the intent
         caseType = intent.getStringExtra("CASE_TYPE") ?: ""
 
-        // Finding input fields by their IDs
+        // Initialize Firebase database reference
+        database = FirebaseDatabase.getInstance().reference.child("cases")
+
+        // Find input fields by their IDs
         val etPhoneNumber = findViewById<EditText>(R.id.etPhoneNumber)
         val etLocation = findViewById<EditText>(R.id.etLocation)
         val btnSubmit = findViewById<Button>(R.id.btnSubmitDetails)
@@ -39,22 +44,25 @@ class EnterDetailsActivity : AppCompatActivity() {
     }
 
     private fun saveCaseDetails(phoneNumber: String, location: String) {
-        // Insert reported case with phone number and location into the database
-        val dbHelper = DatabaseHelper(this)
-        val db = dbHelper.writableDatabase
-        val values = ContentValues().apply {
-            put(DatabaseHelper.COLUMN_TYPE, caseType)
-            put(DatabaseHelper.COLUMN_PHONE_NUMBER, phoneNumber)
-            put(DatabaseHelper.COLUMN_LOCATION, location)
-        }
-        db.insert(DatabaseHelper.TABLE_CASES, null, values)
-        db.close()
+        // Create a unique key for each case
+        val caseId = database.push().key ?: return
 
-        // Show a toast message indicating the case has been reported
-        Toast.makeText(this, "Case Reported: $caseType", Toast.LENGTH_SHORT).show()
+        // Create a case object to store in Firebase
+        val caseData = mapOf(
+            "type" to caseType,
+            "phoneNumber" to phoneNumber,
+            "location" to location
+        )
 
-        // Close the activity after reporting the case
-        finish()
+        // Save the case to Firebase
+        database.child(caseId).setValue(caseData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Case Reported: $caseType", Toast.LENGTH_SHORT).show()
+                finish() // Close the activity after reporting the case
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to report case. Try again.", Toast.LENGTH_SHORT).show()
+            }
     }
 
     companion object {
