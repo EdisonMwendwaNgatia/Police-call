@@ -40,8 +40,7 @@ class ShowCasesActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle error
-                tvCases.text = "Failed to load cases."
+                tvCases.text = getString(R.string.failed_to_load_cases)
             }
         })
     }

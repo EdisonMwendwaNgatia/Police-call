@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Police call</string>
+    <string name="failed_to_load_cases">Failed to load cases.</string>
 </resources>
