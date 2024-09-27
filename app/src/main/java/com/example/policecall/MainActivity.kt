@@ -14,6 +14,13 @@ class MainActivity : AppCompatActivity() {
         // Find buttons by their IDs
         val btnRape = findViewById<Button>(R.id.btnRape)
         val btnRobbery = findViewById<Button>(R.id.btnRobbery)
+        val btnAssault = findViewById<Button>(R.id.btnAssault)
+        val btnViolence = findViewById<Button>(R.id.btnViolence)
+        val btnCorruption = findViewById<Button>(R.id.btnCorruption)
+        val btnTrafficOffense = findViewById<Button>(R.id.btnTrafficOffense)
+        val btnFraudScams = findViewById<Button>(R.id.btnFraudScams)
+        val btnDrugRelated = findViewById<Button>(R.id.btnDrugRelated)
+
         val btnShowCases = findViewById<Button>(R.id.btnShowCases)
 
         // Setting click listeners for each button
@@ -23,6 +30,30 @@ class MainActivity : AppCompatActivity() {
 
         btnRobbery.setOnClickListener {
             startActivity(EnterDetailsActivity.newIntent(this, "Robbery"))
+        }
+
+        btnAssault.setOnClickListener {
+            startActivity(EnterDetailsActivity.newIntent(this, "Assault"))
+        }
+
+        btnViolence.setOnClickListener {
+            startActivity(EnterDetailsActivity.newIntent(this, "Violence"))
+        }
+
+        btnCorruption.setOnClickListener {
+            startActivity(EnterDetailsActivity.newIntent(this, "Corruption"))
+        }
+
+        btnTrafficOffense.setOnClickListener {
+            startActivity(EnterDetailsActivity.newIntent(this, "TrafficOffense"))
+        }
+
+        btnFraudScams.setOnClickListener {
+            startActivity(EnterDetailsActivity.newIntent(this, "FraudScams"))
+        }
+
+        btnDrugRelated.setOnClickListener {
+            startActivity(EnterDetailsActivity.newIntent(this, "DrugRelated"))
         }
 
         // Navigate to PoliceLoginActivity when Show Cases button is clicked

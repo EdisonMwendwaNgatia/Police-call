@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class PoliceLoginActivity : AppCompatActivity() {
 
-    // Hardcode valid badge numbers and names
+    // Hardcode valid badge numbers and names u can add them if too many we can create an authentication database where they can be added to
     private val validBadgeNumbers = mapOf("12345" to "Officer John", "54321" to "Officer Jane")
 
     override fun onCreate(savedInstanceState: Bundle?) {
